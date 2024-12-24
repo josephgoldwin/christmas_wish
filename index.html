@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Celebration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #image {
+            width: 300px;
+            height: auto;
+            display: none;
+            animation: rotateImage 5s infinite linear; /* Rotate image continuously */
+        }
+        #churchImage {
+            width: 500px;
+            height: auto;
+            display: none;
+            animation: rotateImage 5s 3 linear; /* Rotate image continuously */
+        }
+        @keyframes rotateImage {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        #message {
+            font-size: 30px;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
+        #time {
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="message"></div>
+        <!-- <img id="churchImage" src="images.jfif" alt="Church Image"> -->
+        <iframe id="churchImage" width="560" height="315" src="https://www.youtube.com/embed/6BZo3u8tuek?si=WrdMoZ-C3oGZcW56" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <img id="image" src="img.jfif" alt="Christmas Image">
+        <div id="time"></div>
+    </div>
+
+    <audio id="alarm" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            // Display current time
+            document.getElementById('time').textContent = "Current Time: " + now.toLocaleTimeString();
+
+            // Check if it's 12:39:45 PM
+            if (hours === 13 && minutes === 3 && seconds === 30) {
+                playAlarm();
+            }
+
+            // Check if it's Christmas (December 25)
+            if (now.getMonth() === 11 && now.getDate() === 25) {
+                displayChristmasMessage();
+            }
+        }
+
+        function playAlarm() {
+            var alarm = document.getElementById('alarm');
+            alarm.play();  // Play the beep sound at 12:39:45
+            document.getElementById('message').textContent = "Good Morning!";
+
+            // Using jQuery to animate the church image and message
+            $('#churchImage').fadeIn(1000);  // Fade in church image in 1 second
+            $('#message').fadeIn(1000);  // Fade in the message in 1 second
+        }
+
+        function displayChristmasMessage() {
+            document.getElementById('message').textContent = "Happy Christmas!";
+
+            // Using jQuery to animate the Christmas image and message
+            $('#image').fadeIn(1000);  // Fade in Christmas image in 1 second
+            $('#message').fadeIn(1000);  // Fade in the message in 1 second
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+    </script>
+
+</body>
+</html>
